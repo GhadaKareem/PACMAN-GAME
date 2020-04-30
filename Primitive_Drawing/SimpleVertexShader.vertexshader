@@ -1,0 +1,23 @@
+#version 330 core
+
+layout(location = 0) in vec3 vertexPosition_modelspace; 
+layout(location = 1) in vec3 VertexNormal; 
+layout(location = 2) in vec2 vertextTextCoord;
+
+out vec2 theTexCoord;
+
+out vec3 thePosition;
+out vec3 theNormal;
+
+uniform mat4 MVP;
+uniform mat4 M;
+
+void main(){
+
+gl_Position =MVP * vec4(vertexPosition_modelspace , 1);
+   theTexCoord=vertextTextCoord;
+   thePosition = vec3(M *  vec4(vertexPosition_modelspace , 1.0));
+   theNormal =vec3(normalize(M * vec4(VertexNormal , 0.0)));
+   
+}
+

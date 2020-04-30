@@ -1,0 +1,27 @@
+#version 330 core
+
+
+out vec3 color; 
+in vec2 theTexCoord;
+in vec3 thePosition;
+in vec3 theNormal;
+
+uniform sampler2D MyTexture;
+uniform vec3 AmbientColor;
+uniform vec3 DiffuseLight;
+uniform vec3 LightPosition;
+
+void main()
+{
+
+ vec3 TextureColor =texture(MyTexture,theTexCoord).rgb;
+ 
+ vec3 A = TextureColor * AmbientColor;
+ 
+ vec3 LightVector = normalize(LightPosition - thePosition);
+ vec3 D = TextureColor * DiffuseLight * clamp(dot(theNormal,LightVector),0,1);
+ vec3 I = A + D ;
+
+ color =  I;
+
+}
